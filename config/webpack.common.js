@@ -25,7 +25,7 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
  */
 const HMR = helpers.hasProcessFlag('hot');
 const METADATA = {
-  title: 'Tast Management',
+  title: 'Task Management',
   baseUrl: '/',
   isDevServer: helpers.isWebpackDevServer()
 };
