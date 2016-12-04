@@ -1,0 +1,30 @@
+<div *ngIf="selectedTask">
+  <md-card color="primary" class="app-input-section">
+    <md-card-content color="primary">
+      <h2>Task Detail</h2>
+      <p class="error" *ngIf="selectedTask.error">{{selectedTask.error}}</p>
+      <div>
+        <md-input color="primary" [(ngModel)]="selectedTask.title" placeholder="title" class="task-title" (focus)="selectedTask.error=null"></md-input>
+        <span class="task-priority">
+          <md-hint align="end">priority</md-hint>
+          <i [style.color] = "priorities[selectedTask.priority-1].color" class="material-icons app-input-icon priority">flag</i>
+          <i *ngFor="let priority of priorities" [style.color]="priority.color" class="material-icons app-input-icon priority-option" (click)="changePriority(priority.level, $event)">flag</i>
+        </span>
+        <md-checkbox [(ngModel)]="selectedTask.state" [(checked)]="selectedTask.state" color="primary" class="task-state">
+          <md-hint align="end">done</md-hint>
+        </md-checkbox>
+      </div>
+      <div>
+        <md-input [(ngModel)]="selectedTask.dateStart" placeholder="start" type="date" class="task-date"></md-input>
+        <md-input [(ngModel)]="selectedTask.dateEnd" placeholder="end" type="date" class="task-date"></md-input>
+        <md-input [ngModel]="selectedTask.dateCreated | date:'MM/dd/yyyy' " placeholder="created" class="task-date" [disabled]="true"></md-input>
+      </div>
+      <div>
+        <md-input [(ngModel)]="selectedTask.description" placeholder="description" class="task-desc"></md-input>
+      </div>
+
+      <button md-raised-button color="primary" (click)="save(selectedTask)">Save</button>
+      <button md-raised-button color="warn" (click)="cancel()">Cancel</button>
+    </md-card-content>
+  </md-card>
+</div>

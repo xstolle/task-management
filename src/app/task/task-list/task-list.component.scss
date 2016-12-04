@@ -1,0 +1,83 @@
+@import '../../app.component.scss';
+
+.task-list-section {
+  background-color: $primary-color-light;
+  box-shadow: none;
+}
+
+.selected {
+  background-color: #CFD8DC !important;
+  background-color: $primary-color-dark !important;
+  color: $primary-color-text;
+}
+
+.tasks {
+  margin: 0 0 2em;
+  list-style-type: none;
+  padding: 0;
+}
+
+.tasks li {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  background-color: $primary-color-text;
+  margin: 0.5em;
+  border-radius: 4px;
+}
+
+.tasks li:hover {
+  color: $primary-color-text;
+  background-color: $secondary-text-color;
+  left: 0.1em;
+}
+
+.tasks li.selected:hover {
+  color: $primary-color-text;
+}
+
+.tasks .text {
+  position: relative;
+  top: -3px;
+}
+
+.tasks .badge {
+  display: inline-block;
+  font-size: small;
+  color: $primary-text-color;
+  padding: 0.8em 0.7em 0;
+  background-color: $primary-color;
+  line-height: 1em;
+  position: relative;
+  left: -1px;
+  height: 1.8em;
+  margin-right: 0.8em;
+  border-radius: 4px 0 0 4px;
+}
+
+button {
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  cursor: hand;
+}
+
+button:hover {
+  background-color: $secondary-text-color;
+}
+
+.delete-button {
+  float: right;
+  color: $accent-color;
+  margin-top: 7px;
+}
+
+.delete-button.disabled {
+  color: $divider-color;
+  cursor: not-allowed;
+}
+
+.error {
+  color: $accent-color;
+}

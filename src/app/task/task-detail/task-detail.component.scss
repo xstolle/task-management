@@ -1,0 +1,48 @@
+@import '../../app.component.scss';
+
+md-checkbox {
+  /deep/ .md-checkbox-background {
+    background-color: $secondary-text-color;
+  }
+
+  /deep/ &.md-checkbox-focused {
+    .md-ink-ripple {
+      background-color: $primary-color-light;
+    }
+  }
+}
+
+.task-title {
+  width: 33%;
+}
+
+.task-priority {
+  width: 33%;
+}
+
+.task-state {
+  float: right;
+  margin-bottom: 10px;
+}
+
+.task-date {
+  width: 33%;
+}
+
+.task-desc {
+  width: 100%;
+}
+
+.priority {
+  background-color: $primary-color-dark;
+  margin-right: 10px;
+}
+
+.priority-option {
+  cursor: pointer;
+  cursor: hand;
+}
+
+.error {
+  color: $accent-color;
+}
