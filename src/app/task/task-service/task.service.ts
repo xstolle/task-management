@@ -7,15 +7,15 @@ import { Task } from './task';
 @Injectable()
 export class TaskService {
   static tasks: Task[] = [
-    { id: 1, title: 'Christmas plan', description: 'where to go, who to meet and what to buy for gifts', state: true, priority: 2, dateCreated: '2016-11-27T23:28:56.782Z', dateStart: '2016-11-27T23:28:56.782Z', dateEnd: '2016-11-29T23:28:56.782Z', group: 'home' },
-    { id: 2, title: 'swimming City', description: 'need to email Patricia to get a date and time, CityBad', state: false, priority: 2, dateCreated: '2016-12-01T23:28:56.782Z', dateStart: '2016-11-29T23:28:56.782Z', dateEnd: '2016-11-29T23:28:56.782Z', group: 'home' },
-    { id: 3, title: 'hiking with SAC', description: 'when in December has a tour and if I have no other plan on the day', state: false, priority: 1, dateCreated: '2016-12-03T23:28:56.782Z', dateStart: '2016-11-27T23:28:56.782Z', dateEnd: '2016-11-27T23:28:56.782Z', group: 'home' },
-    { id: 4, title: 'Christmas market', description: 'which one to check and make sure go there without dinner', state: false, priority: 1, dateCreated: '2016-12-03T23:28:56.782Z', dateStart: '2016-11-27T23:28:56.782Z', dateEnd: '2016-11-27T23:28:56.782Z', group: 'home' },
-    { id: 5, title: 'call home', description: 'every two weeks', state: false, priority: 1, dateCreated: '2016-11-30T23:28:56.782Z', dateStart: '2016-12-04T23:28:56.782Z', dateEnd: '2016-11-27T23:28:56.782Z', group: 'home' },
-    { id: 6, title: 'food shopping', description: 'twice a week', state: false, priority: 3, dateCreated: '2016-11-30T23:28:56.782Z', dateStart: '2016-12-03T23:28:56.782Z', dateEnd: '2016-11-27T23:28:56.782Z', group: 'home' },
-    { id: 7, title: 'January ski', description: 'gentleman ski club coming to Austria, prepare with ski clothes and tickets', state: false, priority: 1, dateCreated: '2016-12-01T23:28:56.782Z', dateStart: '2016-11-27T23:28:56.782Z', dateEnd: '2016-11-27T23:28:56.782Z', group: 'city' },
-    { id: 8, title: 'hot pot', description: 'for new years party, we are going to have a hot pot!', state: false, priority: 1, dateCreated: '2016-12-04T23:28:56.782Z', dateStart: '2016-11-27T23:28:56.782Z', dateEnd: '2016-11-27T23:28:56.782Z', group: 'city' },
-    { id: 9, title: 'trip to Berlin', description: 'cream, cookies, ...', state: false, priority: 1, dateCreated: '2016-12-03T23:28:56.782Z', dateStart: '2016-12-03T23:28:56.782Z', dateEnd: '2016-11-27T23:28:56.782Z', group: 'city' }
+    { id: 1, title: 'Christmas plan', description: 'where to go, who to meet and what to buy for gifts', state: true, priority: 2, dateCreated: '2016-11-27T23:28:56.782Z', dateStart: '2016-12-04T23:28:56.782Z', dateEnd: '2016-12-24T23:28:56.782Z', group: 'home' },
+    { id: 2, title: 'swimming City', description: 'need to email Patricia to get a date and time, CityBad', state: false, priority: 2, dateCreated: '2016-12-01T23:28:56.782Z', dateStart: '2016-12-06T23:28:56.782Z', dateEnd: '2016-12-06T23:28:56.782Z', group: 'home' },
+    { id: 3, title: 'hiking with SAC', description: 'when in December has a tour and if I have no other plan on the day', state: false, priority: 1, dateCreated: '2016-12-03T23:28:56.782Z', dateStart: '2016-12-10T23:28:56.782Z', dateEnd: '2016-12-10T23:28:56.782Z', group: 'home' },
+    { id: 4, title: 'Christmas market', description: 'which one to check and make sure go there without dinner', state: false, priority: 1, dateCreated: '2016-12-03T23:28:56.782Z', dateStart: '2016-12-09T23:28:56.782Z', dateEnd: '2016-12-09T23:28:56.782Z', group: 'home' },
+    { id: 5, title: 'call home', description: 'every two weeks', state: false, priority: 1, dateCreated: '2016-11-30T23:28:56.782Z', dateStart: '2016-12-05T23:28:56.782Z', dateEnd: '2016-12-10T23:28:56.782Z', group: 'home' },
+    { id: 6, title: 'food shopping', description: 'twice a week', state: false, priority: 3, dateCreated: '2016-11-30T23:28:56.782Z', dateStart: '2016-12-12T23:28:56.782Z', dateEnd: '2016-12-12T23:28:56.782Z', group: 'home' },
+    { id: 7, title: 'January ski', description: 'gentleman ski club coming to Austria, prepare with ski clothes and tickets', state: false, priority: 1, dateCreated: '2016-12-01T23:28:56.782Z', dateStart: '2017-01-16T23:28:56.782Z', dateEnd: '2017-01-19T23:28:56.782Z', group: 'city' },
+    { id: 8, title: 'hot pot', description: 'for new years party, we are going to have a hot pot!', state: false, priority: 1, dateCreated: '2016-12-04T23:28:56.782Z', dateStart: '2016-12-31T23:28:56.782Z', dateEnd: '2016-12-31T23:28:56.782Z', group: 'city' },
+    { id: 9, title: 'trip to Berlin', description: 'cream, cookies, ...', state: false, priority: 1, dateCreated: '2016-12-03T23:28:56.782Z', dateStart: '2016-12-23T23:28:56.782Z', dateEnd: '2016-12-31T23:28:56.782Z', group: 'city' }
   ];
 
   static priorities = [
@@ -175,10 +175,13 @@ export class TaskService {
     const today = moment().format('L');
     const week = moment().startOf('day').add(7, 'days').format('L');
     if (this.filter === 'today') {
-      this.filteredTasks = tasks.filter((item) => moment.utc(item.dateCreated).format('L') === today)
+      this.filteredTasks = tasks.filter((item) =>
+        moment.utc(item.dateStart).format('L') <= today
+        && moment.utc(item.dateEnd).format('L') >= today)
     } else if (this.filter === 'week') {
-      this.filteredTasks = tasks.filter((item) => moment.utc(item.dateCreated).format('L') >= today
-        && moment.utc(item.dateCreated).format('L') <= week)
+      this.filteredTasks = tasks.filter((item) =>
+        moment.utc(item.dateStart).format('L') <= week
+        && moment.utc(item.dateEnd).format('L') >= today)
     } else if (this.filter === 'all') {
       this.filteredTasks = tasks;
     } else if (this.filter === 'active') {
