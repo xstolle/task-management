@@ -4,8 +4,8 @@ Task Management
   --> Task
     --> (Task Data Service)
     : Task Nav
-    : Task List
-    : Task Detail
+    , Task List
+    , Task Detail
 
 install all necessary packages:
 npm install
