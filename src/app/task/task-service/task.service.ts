@@ -6,7 +6,7 @@ import { Task } from './task';
 
 @Injectable()
 export class TaskService {
-  static tasks: Task[] = [
+  tasks: Task[] = [
     { id: 1, title: 'Christmas plan', description: 'where to go, who to meet and what to buy for gifts', state: true, priority: 2, dateCreated: '2016-11-27T23:28:56.782Z', dateStart: '2016-12-04T23:28:56.782Z', dateEnd: '2016-12-24T23:28:56.782Z', group: 'home' },
     { id: 2, title: 'swimming City', description: 'need to email Patricia to get a date and time, CityBad', state: false, priority: 2, dateCreated: '2016-12-01T23:28:56.782Z', dateStart: '2016-12-06T23:28:56.782Z', dateEnd: '2016-12-06T23:28:56.782Z', group: 'home' },
     { id: 3, title: 'hiking with SAC', description: 'when in December has a tour and if I have no other plan on the day', state: false, priority: 1, dateCreated: '2016-12-03T23:28:56.782Z', dateStart: '2016-12-10T23:28:56.782Z', dateEnd: '2016-12-10T23:28:56.782Z', group: 'home' },
@@ -18,42 +18,42 @@ export class TaskService {
     { id: 9, title: 'trip to Berlin', description: 'cream, cookies, ...', state: false, priority: 1, dateCreated: '2016-12-03T23:28:56.782Z', dateStart: '2016-12-23T23:28:56.782Z', dateEnd: '2016-12-31T23:28:56.782Z', group: 'city' }
   ];
 
-  static priorities = [
+  priorities = [
     { level: 1, color: 'grey' },
     { level: 2, color: 'orange' },
     { level: 3, color: 'red' }];
 
-  static filter: string = 'all';
-  static filteredTasks: Task[] = TaskService.tasks.slice();
-  static selectedTask: Task = TaskService.filteredTasks[0];
-  static selectedTaskClone: Task = TaskService.cloneTask(TaskService.selectedTask); //Object.assign({}, TaskService.filteredTasks[0]);
+  filter: string = 'all';
+  filteredTasks: Task[] = this.tasks.slice();
+  selectedTask: Task = this.filteredTasks[0];
+  selectedTaskClone: Task = this.cloneTask(this.selectedTask); //Object.assign({}, TaskService.filteredTasks[0]);
 
-  static tasksSubject: BehaviorSubject<Array<Task>> = new BehaviorSubject(TaskService.filteredTasks);
-  static taskSubject: BehaviorSubject<Task> = new BehaviorSubject(TaskService.selectedTaskClone);
+  tasksSubject: BehaviorSubject<Array<Task>> = new BehaviorSubject(this.filteredTasks);
+  taskSubject: BehaviorSubject<Task> = new BehaviorSubject(this.selectedTaskClone);
 
-  static isNewTask = false;
-  static isEditingTask = false;
-  static isNextPrev = false;
+  isNewTask = false;
+  isEditingTask = false;
+  isNextPrev = false;
 
   constructor() {
     console.log('constructing task service.');
   }
 
-  static getPriority() {
+  getPriority() {
     return this.priorities;
   }
 
-  static getFilteredTasksObservable() {
+  getFilteredTasksObservable() {
     console.log('getFilteredTasksObservable tasksSubject', this.tasksSubject);
     return this.tasksSubject;
   }
 
-  static getSelectedTasksObservable() {
+  getSelectedTasksObservable() {
     console.log('getSelectedTasksObservable taskSubject', this.taskSubject);
     return this.taskSubject;
   }
 
-  static getFilterdTask(type: string, term?: string) {
+  getFilterdTask(type: string, term?: string) {
     this.filter = type;
 
     this.filteredTasksObservable(term);
@@ -61,13 +61,13 @@ export class TaskService {
     if (this.filteredTasks[0]) {
       console.log('filteredTasks[0]', this.filteredTasks[0]);
       this.selectedTask = this.cloneTask(this.filteredTasks[0]);
-      this.selectedTaskClone = this.cloneTask(TaskService.selectedTask);
+      this.selectedTaskClone = this.cloneTask(this.selectedTask);
     }
 
     this.selectedTaskObservable()
   }
 
-  static addTask() {
+  addTask() {
     this.isNewTask = true;
     this.isEditingTask = false;
     this.isNextPrev = false;
@@ -83,7 +83,7 @@ export class TaskService {
     this.selectedTaskObservable();
   };
 
-  static nextTask() {
+  nextTask() {
     console.log('task nav: next');
     this.isNextPrev = true;
     const i = this.indexSelectedTask(this.filteredTasks, this.selectedTaskClone.id);
@@ -93,7 +93,7 @@ export class TaskService {
     }
   }
 
-  static prevTask() {
+  prevTask() {
     console.log('task nav: prev');
     this.isNextPrev = true;
     const i = this.indexSelectedTask(this.filteredTasks, this.selectedTaskClone.id);
@@ -103,7 +103,7 @@ export class TaskService {
     }
   }
 
-  static selectTask(task) {
+  selectTask(task) {
     console.log('task list: click on task to select');
     this.isNewTask = false;
     this.isEditingTask = true;
@@ -114,7 +114,7 @@ export class TaskService {
     this.selectedTaskObservable();
   }
 
-  static deleteTask(taskid) {
+  deleteTask(taskid) {
     console.log('task list: delete');
     const i = this.indexSelectedTask(this.filteredTasks, taskid);
 
@@ -136,7 +136,7 @@ export class TaskService {
     this.filteredTasksObservable();
   }
 
-  static save(task) {
+  save(task) {
     console.log('task detail: save', task);
     if (!task.title) {
       task.error = 'title is required field';
@@ -160,7 +160,7 @@ export class TaskService {
     this.selectedTaskObservable();
   }
 
-  static cancel() {
+  cancel() {
     console.log('task detail: cancel');
     this.selectedTaskClone = this.cloneTask(this.selectedTask);
 
@@ -170,7 +170,7 @@ export class TaskService {
     this.selectedTaskObservable();
   }
 
-  static filteredTasksObservable(term?) {
+  filteredTasksObservable(term?) {
     const tasks = this.tasks.slice();
     const today = moment().format('L');
     const week = moment().startOf('day').add(7, 'days').format('L');
@@ -193,19 +193,19 @@ export class TaskService {
     this.tasksSubject.next(this.filteredTasks);
   }
 
-  static selectedTaskObservable() {
+  selectedTaskObservable() {
     this.taskSubject.next(this.selectedTaskClone);
   }
 
-  static formatDateDisplay(date) {
+  formatDateDisplay(date) {
     return date.substring(0, 10);;
   }
 
-  static formatDateSave(date) {
+  formatDateSave(date) {
     return moment(date).format();
   }
 
-  static indexSelectedTask(tasks, selectedtaskid) {
+  indexSelectedTask(tasks, selectedtaskid) {
     for (let i = 0; i < tasks.length; i++) {
       if (tasks[i].id === selectedtaskid) {
         return i;
@@ -213,7 +213,7 @@ export class TaskService {
     }
   }
 
-  static cloneTask(task) {
+  cloneTask(task) {
     let clonetask = Object.assign({}, task);
 
     clonetask.dateCreated = this.formatDateDisplay(clonetask.dateCreated);
@@ -223,7 +223,7 @@ export class TaskService {
     return clonetask
   }
 
-  static getLastId(tasks) {
+  getLastId(tasks) {
     return tasks.map((task) => task.id)
       .reduce((p, v) => (p > v ? p : v));
   }

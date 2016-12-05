@@ -5,7 +5,7 @@ import { TaskService } from './../task-service/task.service';
 
 @Component({
   selector: 'task-detail',
-  providers: [TaskService],
+  providers: [],
   templateUrl: 'task-detail.component.html',
   styleUrls: ['task-detail.component.scss']
 })
@@ -14,11 +14,11 @@ export class TaskDetailComponent implements OnInit {
   selectedTask: Task;
   priorities;
 
-  constructor() { }
+  constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
-    this.priorities = TaskService.getPriority();
-    this.task$ = TaskService.getSelectedTasksObservable()
+    this.priorities = this.taskService.getPriority();
+    this.task$ = this.taskService.getSelectedTasksObservable()
       .subscribe(
       data => {
         this.selectedTask = data;
@@ -41,10 +41,10 @@ export class TaskDetailComponent implements OnInit {
   }
 
   save(task: Task): void {
-    TaskService.save(task);
+    this.taskService.save(task);
   }
 
   cancel(): void {
-    TaskService.cancel();
+    this.taskService.cancel();
   }
 }

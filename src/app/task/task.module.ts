@@ -12,13 +12,15 @@ import { MdListModule} from '@angular2-material/list';
 import { MdIconModule, MdIconRegistry } from '@angular2-material/icon';
 import { MdUniqueSelectionDispatcher } from '@angular2-material/core';
 import { MdToolbarModule} from '@angular2-material/toolbar';
+import { MomentModule } from 'angular2-moment';
 
+import { TaskService } from './task-service/task.service';
 import { SharedModule } from './../shared/shared.module';
 import { TaskComponent } from './task.component';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { TaskNavComponent } from './task-nav/task-nav.component';
-import { MomentModule } from 'angular2-moment';
+
 /**
  *
  */
@@ -50,6 +52,10 @@ import { MomentModule } from 'angular2-moment';
     TaskListComponent,
     TaskNavComponent
   ],
-  providers: [MdIconRegistry, MdUniqueSelectionDispatcher]
+  providers: [
+    MdIconRegistry,
+    MdUniqueSelectionDispatcher,
+    TaskService
+  ]
 })
 export class TaskModule { }

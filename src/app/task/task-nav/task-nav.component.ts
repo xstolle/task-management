@@ -7,7 +7,7 @@ import { TaskService } from './../task-service/task.service';
   selector: 'task-nav',
   templateUrl: './task-nav.component.html',
   styleUrls: ['./task-nav.component.scss'],
-  providers: [TaskService]
+  providers: []
 })
 export class TaskNavComponent implements OnInit {
   todaySelected = false;
@@ -17,7 +17,7 @@ export class TaskNavComponent implements OnInit {
 
   searchTerm = '';
 
-  constructor() { }
+  constructor(private taskService: TaskService) { }
 
   ngOnInit(): void { }
 
@@ -47,19 +47,19 @@ export class TaskNavComponent implements OnInit {
 
   setFilter(filter, term?): void {
     this.setSelected(filter);
-    TaskService.getFilterdTask(filter, term);
+    this.taskService.getFilterdTask(filter, term);
   }
 
   addTask(): void {
-    TaskService.addTask();
+    this.taskService.addTask();
   }
 
   nextTask(): void {
-    TaskService.nextTask();
+    this.taskService.nextTask();
   }
 
   prevTask(): void {
-    TaskService.prevTask();
+    this.taskService.prevTask();
   }
 
 }

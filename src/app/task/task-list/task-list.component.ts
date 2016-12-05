@@ -8,7 +8,7 @@ import { TaskService } from './../task-service/task.service';
   //template: `<h1>Hello task list</h1>`,
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss'],
-  providers: [TaskService]
+  providers: []
 })
 export class TaskListComponent {
   tasks$;
@@ -16,10 +16,10 @@ export class TaskListComponent {
   filteredTasks;
   selectedTask;
 
-  constructor() { }
+  constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
-    this.tasks$ = TaskService.getFilteredTasksObservable()
+    this.tasks$ = this.taskService.getFilteredTasksObservable()
       .subscribe(
       data => {
         this.filteredTasks = data;
@@ -32,7 +32,7 @@ export class TaskListComponent {
         console.log('Task List getFilteredTasksObservable Completed');
       })
 
-    this.task$ = TaskService.getSelectedTasksObservable()
+    this.task$ = this.taskService.getSelectedTasksObservable()
       .subscribe(
       data => {
         this.selectedTask = data;
@@ -52,10 +52,10 @@ export class TaskListComponent {
   }
 
   onSelect(task) {
-    TaskService.selectTask(task);
+    this.taskService.selectTask(task);
   }
 
   deleteTask(taskid, e) {
-    TaskService.deleteTask(taskid);
+    this.taskService.deleteTask(taskid);
   }
 }
