@@ -72,13 +72,15 @@ export class TaskService {
     this.isEditingTask = false;
     this.isNextPrev = false;
 
-    this.selectedTaskClone = new Task();
-    this.selectedTaskClone.id = this.getLastId(this.tasks) + 1;
-    this.selectedTaskClone.dateCreated = moment().format();
-    this.selectedTaskClone.dateStart = moment().format();
-    this.selectedTaskClone.dateEnd = moment().format();
-    this.selectedTaskClone.state = false;
-    this.selectedTaskClone.priority = 1;
+    const newTask = new Task();
+    newTask.id = this.getLastId(this.tasks) + 1;
+    newTask.dateCreated = moment().format();
+    newTask.dateStart = moment().format();
+    newTask.dateEnd = moment().format();
+    newTask.state = false;
+    newTask.priority = 1;
+
+    this.selectedTaskClone = this.cloneTask(newTask);
 
     this.selectedTaskObservable();
   };
@@ -172,17 +174,15 @@ export class TaskService {
 
   filteredTasksObservable(term?) {
     const tasks = this.tasks.slice();
-    const today = moment().format('L');
-    const week = moment().startOf('day').add(7, 'days').format('L');
+    const today = moment().startOf('day').format();
+    const week = moment().startOf('day').add(7, 'days').format();
     let filteredTasksUnSorted: Task[];
     if (this.filter === 'today') {
       filteredTasksUnSorted = tasks.filter((item) =>
-        moment.utc(item.dateStart).format('L') <= today
-        && moment.utc(item.dateEnd).format('L') >= today)
+        item.dateStart <= today && item.dateEnd >= today)
     } else if (this.filter === 'week') {
       filteredTasksUnSorted = tasks.filter((item) =>
-        moment.utc(item.dateStart).format('L') <= week
-        && moment.utc(item.dateEnd).format('L') >= today)
+        item.dateStart <= week && item.dateEnd >= today)
     } else if (this.filter === 'all') {
       filteredTasksUnSorted = tasks;
     } else if (this.filter === 'active') {
