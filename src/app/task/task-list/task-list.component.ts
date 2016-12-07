@@ -36,13 +36,13 @@ export class TaskListComponent {
       .subscribe(
       data => {
         this.selectedTask = data;
-        console.log('Task List getSelectedTasksObservable Data: ' + data);
+        console.log('Task List getSelectedTaskObservable Data: ' + data);
       },
       err => {
-        console.log('Task List getSelectedTasksObservable Error: ' + err);
+        console.log('Task List getSelectedTaskObservable Error: ' + err);
       },
       () => {
-        console.log('Task List getSelectedTasksObservable Completed');
+        console.log('Task List getSelectedTaskObservable Completed');
       })
   }
 

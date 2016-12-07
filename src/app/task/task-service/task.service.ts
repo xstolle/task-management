@@ -9,7 +9,7 @@ export class TaskService {
   tasks: Task[] = [
     { id: 1, title: 'Christmas plan', description: 'where to go, who to meet and what to buy for gifts', state: true, priority: 2, dateCreated: '2016-11-27T23:28:56.782Z', dateStart: '2016-12-04T23:28:56.782Z', dateEnd: '2016-12-24T23:28:56.782Z', group: 'home' },
     { id: 2, title: 'swimming City', description: 'need to email Patricia to get a date and time, CityBad', state: false, priority: 2, dateCreated: '2016-12-01T23:28:56.782Z', dateStart: '2016-12-06T23:28:56.782Z', dateEnd: '2016-12-06T23:28:56.782Z', group: 'home' },
-    { id: 3, title: 'hiking with SAC', description: 'when in December has a tour and if I have no other plan on the day', state: false, priority: 1, dateCreated: '2016-12-03T23:28:56.782Z', dateStart: '2016-12-10T23:28:56.782Z', dateEnd: '2016-12-10T23:28:56.782Z', group: 'home' },
+    { id: 3, title: 'hiking with SAC', description: 'when in December has a tour and if I have no other plan on the day', state: true, priority: 1, dateCreated: '2016-12-03T23:28:56.782Z', dateStart: '2016-12-10T23:28:56.782Z', dateEnd: '2016-12-10T23:28:56.782Z', group: 'home' },
     { id: 4, title: 'Christmas market', description: 'which one to check and make sure go there without dinner', state: false, priority: 1, dateCreated: '2016-12-03T23:28:56.782Z', dateStart: '2016-12-09T23:28:56.782Z', dateEnd: '2016-12-09T23:28:56.782Z', group: 'home' },
     { id: 5, title: 'call home', description: 'every two weeks', state: false, priority: 1, dateCreated: '2016-11-30T23:28:56.782Z', dateStart: '2016-12-05T23:28:56.782Z', dateEnd: '2016-12-10T23:28:56.782Z', group: 'home' },
     { id: 6, title: 'food shopping', description: 'twice a week', state: false, priority: 3, dateCreated: '2016-11-30T23:28:56.782Z', dateStart: '2016-12-12T23:28:56.782Z', dateEnd: '2016-12-12T23:28:56.782Z', group: 'home' },
@@ -24,10 +24,10 @@ export class TaskService {
     { level: 3, color: 'red' }];
 
   filter: string = 'all';
-  filteredTasks: Task[] = this.tasks.slice();
+  //filteredTasks: Task[] = this.tasks.slice();
+  filteredTasks = this.orderByDate(this.tasks.slice(), 'dateStart');
   selectedTask: Task = this.filteredTasks[0];
-  selectedTaskClone: Task = this.cloneTask(this.selectedTask); //Object.assign({}, TaskService.filteredTasks[0]);
-
+  selectedTaskClone: Task = this.cloneTask(this.selectedTask);
   tasksSubject: BehaviorSubject<Array<Task>> = new BehaviorSubject(this.filteredTasks);
   taskSubject: BehaviorSubject<Task> = new BehaviorSubject(this.selectedTaskClone);
 
@@ -59,7 +59,7 @@ export class TaskService {
     this.filteredTasksObservable(term);
 
     if (this.filteredTasks[0]) {
-      console.log('filteredTasks[0]', this.filteredTasks[0]);
+      //console.log('filteredTasks[0]', this.filteredTasks[0]);
       this.selectedTask = this.cloneTask(this.filteredTasks[0]);
       this.selectedTaskClone = this.cloneTask(this.selectedTask);
     }
@@ -174,21 +174,24 @@ export class TaskService {
     const tasks = this.tasks.slice();
     const today = moment().format('L');
     const week = moment().startOf('day').add(7, 'days').format('L');
+    let filteredTasksUnSorted: Task[];
     if (this.filter === 'today') {
-      this.filteredTasks = tasks.filter((item) =>
+      filteredTasksUnSorted = tasks.filter((item) =>
         moment.utc(item.dateStart).format('L') <= today
         && moment.utc(item.dateEnd).format('L') >= today)
     } else if (this.filter === 'week') {
-      this.filteredTasks = tasks.filter((item) =>
+      filteredTasksUnSorted = tasks.filter((item) =>
         moment.utc(item.dateStart).format('L') <= week
         && moment.utc(item.dateEnd).format('L') >= today)
     } else if (this.filter === 'all') {
-      this.filteredTasks = tasks;
+      filteredTasksUnSorted = tasks;
     } else if (this.filter === 'active') {
-      this.filteredTasks = tasks.filter((item) => item.state === false)
+      filteredTasksUnSorted = tasks.filter((item) => item.state === false)
     } else if (this.filter === 'search') {
-      this.filteredTasks = tasks.filter((item) => item.title.toUpperCase().indexOf(term.toUpperCase()) !== -1)
+      filteredTasksUnSorted = tasks.filter((item) => item.title.toUpperCase().indexOf(term.toUpperCase()) !== -1)
     }
+
+    this.filteredTasks = this.orderByDate(filteredTasksUnSorted.slice(), 'dateStart');
 
     this.tasksSubject.next(this.filteredTasks);
   }
@@ -226,6 +229,12 @@ export class TaskService {
   getLastId(tasks) {
     return tasks.map((task) => task.id)
       .reduce((p, v) => (p > v ? p : v));
+  }
+
+  orderByDate(arr, dateProp) {
+    return arr.slice().sort((a, b) => {
+      return a[dateProp] < b[dateProp] ? -1 : 1;
+    });
   }
 
 }
