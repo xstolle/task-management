@@ -1,21 +1,21 @@
 <md-toolbar class="nav">
   <div>
+      <button md-raised-button color="primary" (click)="setFilter('all')" [class.selected]="allSelected">All</button>
       <button md-raised-button color="primary" (click)="setFilter('today')" [class.selected]="todaySelected">Today</button>
       <button md-raised-button color="primary" (click)="setFilter('week')" [class.selected]="weekSelected">This Week</button>
-      <button md-raised-button color="primary" (click)="setFilter('all')" [class.selected]="allSelected">All</button>
       <button md-raised-button color="primary" (click)="setFilter('active')" [class.selected]="activeSelected">Active</button>
   </div>
 
   <!-- This fills the remaining space of the current row -->
   <div class="bar-new">
-    <button (click)="addTask()">
-        <i class="material-icons app-input-icon">add_circle</i>
-    </button>
     <button (click)="prevTask()">
         <i class="material-icons app-input-icon">navigate_before</i>
     </button>
     <button (click)="nextTask()">
         <i class="material-icons app-input-icon">navigate_next</i>
+    </button>
+    <button (click)="addTask()">
+        <i class="material-icons app-input-icon">add_circle</i>
     </button>
   </div>
 

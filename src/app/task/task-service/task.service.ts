@@ -24,7 +24,6 @@ export class TaskService {
     { level: 3, color: 'red' }];
 
   filter: string = 'all';
-  //filteredTasks: Task[] = this.tasks.slice();
   filteredTasks = this.orderByDate(this.tasks.slice(), 'dateStart');
   selectedTask: Task = this.filteredTasks[0];
   selectedTaskClone: Task = this.cloneTask(this.selectedTask);

@@ -10,9 +10,9 @@ import { TaskService } from './../task-service/task.service';
   providers: []
 })
 export class TaskNavComponent implements OnInit {
+  allSelected = true;
   todaySelected = false;
   weekSelected = false;
-  allSelected = false;
   activeSelected = false;
 
   searchTerm = '';
