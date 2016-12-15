@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as moment from 'moment';
 import { Task } from './task';
+import * as R from 'ramda';
 
 @Injectable()
 export class TaskService {
@@ -24,7 +25,7 @@ export class TaskService {
     { level: 3, color: 'red' }];
 
   filter: string = 'all';
-  filteredTasks = this.orderByDate(this.tasks.slice(), 'dateStart');
+  filteredTasks = this.orderByDate(this.tasks, 'dateStart');
   selectedTask: Task = this.filteredTasks[0];
   selectedTaskClone: Task = this.cloneTask(this.selectedTask);
   tasksSubject: BehaviorSubject<Array<Task>> = new BehaviorSubject(this.filteredTasks);
@@ -58,7 +59,6 @@ export class TaskService {
     this.filteredTasksObservable(term);
 
     if (this.filteredTasks[0]) {
-      //console.log('filteredTasks[0]', this.filteredTasks[0]);
       this.selectedTask = this.cloneTask(this.filteredTasks[0]);
       this.selectedTaskClone = this.cloneTask(this.selectedTask);
     }
@@ -87,7 +87,7 @@ export class TaskService {
   nextTask() {
     console.log('task nav: next');
     this.isNextPrev = true;
-    const i = this.indexSelectedTask(this.filteredTasks, this.selectedTaskClone.id);
+    const i = this.indexOfSelectedTask(this.filteredTasks, this.selectedTaskClone.id);
     if (i < this.filteredTasks.length - 1) {
       this.selectedTaskClone = this.cloneTask(this.filteredTasks[i + 1]);
       this.selectedTaskObservable();
@@ -97,7 +97,7 @@ export class TaskService {
   prevTask() {
     console.log('task nav: prev');
     this.isNextPrev = true;
-    const i = this.indexSelectedTask(this.filteredTasks, this.selectedTaskClone.id);
+    const i = this.indexOfSelectedTask(this.filteredTasks, this.selectedTaskClone.id);
     if (i > 0) {
       this.selectedTaskClone = this.cloneTask(this.filteredTasks[i - 1]);
       this.selectedTaskObservable();
@@ -117,7 +117,7 @@ export class TaskService {
 
   deleteTask(taskid) {
     console.log('task list: delete');
-    const i = this.indexSelectedTask(this.filteredTasks, taskid);
+    const i = this.indexOfSelectedTask(this.filteredTasks, taskid);
 
     if (i === 0) {
       this.selectedTaskClone = this.cloneTask(this.filteredTasks[0]);
@@ -150,7 +150,7 @@ export class TaskService {
         this.tasks.push(task);
         this.isNewTask = false;
       } else if (this.isEditingTask) {
-        this.tasks[this.indexSelectedTask(this.tasks, task.id)] = task;
+        this.tasks[this.indexOfSelectedTask(this.tasks, task.id)] = task;
       }
     }
 
@@ -165,14 +165,14 @@ export class TaskService {
     console.log('task detail: cancel');
     this.selectedTaskClone = this.cloneTask(this.selectedTask);
 
-    this.tasks[this.indexSelectedTask(this.tasks, this.selectedTask.id)] = this.selectedTask;
+    this.tasks[this.indexOfSelectedTask(this.tasks, this.selectedTask.id)] = this.selectedTask;
 
     this.filteredTasksObservable();
     this.selectedTaskObservable();
   }
 
   filteredTasksObservable(term?) {
-    const tasks = this.tasks.slice();
+    const tasks = R.clone(this.tasks);
     const today = moment().startOf('day').format();
     const week = moment().startOf('day').add(7, 'days').format();
     let filteredTasksUnSorted: Task[];
@@ -190,7 +190,7 @@ export class TaskService {
       filteredTasksUnSorted = tasks.filter((item) => item.title.toUpperCase().indexOf(term.toUpperCase()) !== -1)
     }
 
-    this.filteredTasks = this.orderByDate(filteredTasksUnSorted.slice(), 'dateStart');
+    this.filteredTasks = this.orderByDate(filteredTasksUnSorted, 'dateStart');
 
     this.tasksSubject.next(this.filteredTasks);
   }
@@ -207,16 +207,12 @@ export class TaskService {
     return moment(date).format();
   }
 
-  indexSelectedTask(tasks, selectedtaskid) {
-    for (let i = 0; i < tasks.length; i++) {
-      if (tasks[i].id === selectedtaskid) {
-        return i;
-      }
-    }
+  indexOfSelectedTask(tasks, selectedtaskid) {
+    return R.findIndex(R.propEq('id', selectedtaskid))(tasks);
   }
 
   cloneTask(task) {
-    let clonetask = Object.assign({}, task);
+    let clonetask = R.clone(task);
 
     clonetask.dateCreated = this.formatDateDisplay(clonetask.dateCreated);
     clonetask.dateStart = this.formatDateDisplay(clonetask.dateStart);
@@ -226,14 +222,12 @@ export class TaskService {
   }
 
   getLastId(tasks) {
-    return tasks.map((task) => task.id)
-      .reduce((p, v) => (p > v ? p : v));
+    return R.last(tasks).id;
   }
 
   orderByDate(arr, dateProp) {
-    return arr.slice().sort((a, b) => {
-      return a[dateProp] < b[dateProp] ? -1 : 1;
-    });
+    const sort = (a, b) => { return a[dateProp] < b[dateProp] ? -1 : 1; };
+    return R.sort(sort, arr)
   }
 
 }
