@@ -2,21 +2,22 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as moment from 'moment';
-import { Task } from './task';
 import * as R from 'ramda';
+import { Task } from './task';
 
 @Injectable()
 export class TaskService {
   tasks: Task[] = [
-    { id: 1, title: 'Christmas plan', description: 'where to go, who to meet and what to buy for gifts', state: true, priority: 2, dateCreated: '2016-11-27T23:28:56.782Z', dateStart: '2016-12-04T23:28:56.782Z', dateEnd: '2016-12-24T23:28:56.782Z', group: 'home' },
-    { id: 2, title: 'swimming City', description: 'need to email Patricia to get a date and time, CityBad', state: false, priority: 2, dateCreated: '2016-12-01T23:28:56.782Z', dateStart: '2016-12-06T23:28:56.782Z', dateEnd: '2016-12-06T23:28:56.782Z', group: 'home' },
-    { id: 3, title: 'hiking with SAC', description: 'when in December has a tour and if I have no other plan on the day', state: true, priority: 1, dateCreated: '2016-12-03T23:28:56.782Z', dateStart: '2016-12-10T23:28:56.782Z', dateEnd: '2016-12-10T23:28:56.782Z', group: 'home' },
-    { id: 4, title: 'Christmas market', description: 'which one to check and make sure go there without dinner', state: false, priority: 1, dateCreated: '2016-12-03T23:28:56.782Z', dateStart: '2016-12-09T23:28:56.782Z', dateEnd: '2016-12-09T23:28:56.782Z', group: 'home' },
+    { id: 1, title: 'SAC flower hiking on Saturday', description: 'email to ask if still happening, then to Karin', state: false, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2017-04-22T09:28:56.782Z', group: 'home' },
+    { id: 2, title: 'Sunday hiking with Linda', description: 'Zug hiking or Zurich Zoo? route, plan', state: false, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2017-04-23T09:28:56.782Z', group: 'home' },
+    { id: 3, title: 'Do something with Ellen', description: 'email reply and plan', state: false, priority: 2, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2017-04-30T09:28:56.782Z', group: 'home' },
+    { id: 4, title: 'Berlin One Year Party', description: 'place, time to start, planning, people to invite', state: false, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2017-06-17T09:28:56.782Z', group: 'home' },
     { id: 5, title: 'call home', description: 'every two weeks', state: false, priority: 1, dateCreated: '2016-11-30T23:28:56.782Z', dateStart: '2016-12-05T23:28:56.782Z', dateEnd: '2016-12-10T23:28:56.782Z', group: 'home' },
-    { id: 6, title: 'food shopping', description: 'twice a week', state: false, priority: 3, dateCreated: '2016-11-30T23:28:56.782Z', dateStart: '2016-12-12T23:28:56.782Z', dateEnd: '2016-12-12T23:28:56.782Z', group: 'home' },
-    { id: 7, title: 'January ski', description: 'gentleman ski club coming to Austria, prepare with ski clothes and tickets', state: false, priority: 1, dateCreated: '2016-12-01T23:28:56.782Z', dateStart: '2017-01-16T23:28:56.782Z', dateEnd: '2017-01-19T23:28:56.782Z', group: 'city' },
-    { id: 8, title: 'hot pot', description: 'for new years party, we are going to have a hot pot!', state: false, priority: 1, dateCreated: '2016-12-04T23:28:56.782Z', dateStart: '2016-12-31T23:28:56.782Z', dateEnd: '2016-12-31T23:28:56.782Z', group: 'city' },
-    { id: 9, title: 'trip to Berlin', description: 'cream, cookies, ...', state: false, priority: 1, dateCreated: '2016-12-03T23:28:56.782Z', dateStart: '2016-12-23T23:28:56.782Z', dateEnd: '2016-12-31T23:28:56.782Z', group: 'city' }
+    { id: 6, title: 'Anna Party on Saturday', description: 'buy carrots and cucummber', state: false, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2017-04-22T09:28:56.782Z', group: 'home' },
+    { id: 7, title: 'Reiners University search', description: 'what and where to study, how to get there', state: false, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2018-04-21T09:28:56.782Z', group: 'home' },
+    { id: 8, title: 'Armins long term goal', description: 'finding right practkums in Berlin, right mentors', state: false, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2019-04-21T09:28:56.782Z', group: 'home' },
+    { id: 9, title: 'Reiners bank account in US', description: 'figure out how to change the name for him', state: false, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2017-04-30T09:28:56.782Z', group: 'home' },
+    { id: 10, title: 'Today', description: 'Jemoli makeup appointment at 4pm, Theater Stor at 8pm', state: false, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2017-04-21T09:28:56.782Z', group: 'home' }
   ];
 
   priorities = [
@@ -173,7 +174,7 @@ export class TaskService {
 
   filteredTasksObservable(term?) {
     const tasks = R.clone(this.tasks);
-    const today = moment().startOf('day').format();
+    const today = moment().endOf('day').format();
     const week = moment().startOf('day').add(7, 'days').format();
     let filteredTasksUnSorted: Task[];
     if (this.filter === 'today') {

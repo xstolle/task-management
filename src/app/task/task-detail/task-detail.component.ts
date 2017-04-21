@@ -47,4 +47,8 @@ export class TaskDetailComponent implements OnInit {
   cancel(): void {
     this.taskService.cancel();
   }
+
+  opentab(): void {
+    window.open('http://www.nyt.com', '_blank');
+  }
 }
