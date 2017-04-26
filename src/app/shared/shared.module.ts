@@ -5,6 +5,7 @@ import { HoverDirectiveDirective } from './hover.directive';
 import { PrependTextPipe } from './prepend-text.pipe';
 import { CapitalizeFirstPipe } from './capitalize-first.pipe';
 import { StringToDatePipe } from './string-to-date.pipe';
+import { MaxLengthPipe } from './max-length.pipe';
 
 @NgModule({
   imports: [CommonModule, FormsModule],
@@ -12,7 +13,8 @@ import { StringToDatePipe } from './string-to-date.pipe';
     HoverDirectiveDirective,
     PrependTextPipe,
     CapitalizeFirstPipe,
-    StringToDatePipe
+    StringToDatePipe,
+    MaxLengthPipe
   ],
   providers: [],
   exports: [
@@ -21,7 +23,8 @@ import { StringToDatePipe } from './string-to-date.pipe';
     HoverDirectiveDirective,
     PrependTextPipe,
     CapitalizeFirstPipe,
-    StringToDatePipe
+    StringToDatePipe,
+    MaxLengthPipe
   ]
 })
 export class SharedModule { }

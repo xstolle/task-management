@@ -5,7 +5,7 @@
       <ul class="tasks">
         <li *ngFor="let task of filteredTasks" (click)="onSelect(task)" [class.selected]="task.id === selectedTask.id">
           <span>
-            <span class="badge">{{filteredTasks.indexOf(task)+1}}</span> {{task.title}}
+            <span class="badge">{{filteredTasks.indexOf(task)+1}}</span> {{task.title | maxLength : 25}}
           </span>
           <i class="material-icons app-input-icon delete-button" [class.disabled]="task.id ==selectedTask.id? false: true" (click)="deleteTask(task.id, $event)">delete</i>
         </li>

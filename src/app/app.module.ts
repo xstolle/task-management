@@ -16,6 +16,8 @@ import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { TaskModule } from './task/task.module';
 import { NoContentComponent } from './no-content';
 
+import { SharedModule } from './shared/shared.module';
+
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS
 ];
@@ -33,6 +35,7 @@ const APP_PROVIDERS = [
     JsonpModule,
     MomentModule,
     TaskModule,
+    SharedModule,
     MaterialModule.forRoot(),
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
   ],
