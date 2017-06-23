@@ -25,17 +25,16 @@ run the application in Google Chrome and Firefox.
 
 
 
-Task Management Overview
-A single page that shows a list of all tasks, as well as details of the currently selected task:
+Task Management is a single page that shows a list of all tasks, as well as details of the currently selected task:
 
-A task should contain at least the following data:
-title
-description
+- A task should contain at least the following data:
+title, 
+description, 
 state (“done”/”open”/…)
  
-The user should be able to do:
-create new tasks
-edit existing tasks
+- The user should be able to do:
+create new tasks, 
+edit existing tasks, 
 mark tasks as “done”
  
 
