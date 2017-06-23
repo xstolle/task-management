@@ -1,5 +1,8 @@
 Task Management
 
+demo on github page
+https://xwilluhn.github.io/task-management/dist
+
 --> App
   --> Task
     --> (Task Data Service)
