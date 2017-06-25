@@ -7,18 +7,7 @@ import { Task } from './task';
 
 @Injectable()
 export class TaskService {
-  tasks: Task[] = [
-    { id: 1, title: 'SAC flower hiking on Saturday', description: 'email to ask if still happening, then to Karin', state: true, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2017-04-22T09:28:56.782Z', group: 'home' },
-    { id: 2, title: 'Sunday hiking with Linda', description: 'Zug hiking or Zurich Zoo? route, plan', state: false, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2017-04-23T09:28:56.782Z', group: 'home' },
-    { id: 3, title: 'Do something with Ellen', description: 'email reply and plan', state: false, priority: 2, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2017-04-30T09:28:56.782Z', group: 'home' },
-    { id: 4, title: 'Berlin One Year Party', description: 'place, time to start, planning, people to invite', state: false, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2017-06-17T09:28:56.782Z', group: 'home' },
-    { id: 5, title: 'call home', description: 'every two weeks', state: false, priority: 1, dateCreated: '2016-11-30T23:28:56.782Z', dateStart: '2016-12-05T23:28:56.782Z', dateEnd: '2016-12-10T23:28:56.782Z', group: 'home' },
-    { id: 6, title: 'Anna Party on Saturday', description: 'buy carrots and cucummber', state: false, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2017-04-22T09:28:56.782Z', group: 'home' },
-    { id: 7, title: 'Reiners University search', description: 'what and where to study, how to get there', state: false, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2018-04-21T09:28:56.782Z', group: 'home' },
-    { id: 8, title: 'Armins long term goal', description: 'finding the place in Berlin', state: false, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2019-04-21T09:28:56.782Z', group: 'home' },
-    { id: 9, title: 'Reiners bank account in US', description: 'figure out how to change the name for him', state: false, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2017-04-30T09:28:56.782Z', group: 'home' },
-    { id: 10, title: 'Today', description: 'makeup appointment at 4pm, Theater Stor at 8pm', state: false, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2017-04-21T09:28:56.782Z', group: 'home' }
-  ];
+  tasks: Task[] = this.initTasks();
 
   priorities = [
     { level: 1, color: 'grey' },
@@ -38,6 +27,27 @@ export class TaskService {
 
   constructor() {
     console.log('constructing task service.');
+  }
+
+  initTasks() {
+    let initTasks = [
+    { id: 1, title: 'SAC flower hiking on Saturday', description: 'email to ask if still happening, then to Karin', state: true, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2017-04-22T09:28:56.782Z', group: 'home' },
+    { id: 2, title: 'Sunday hiking with Linda', description: 'Zug hiking or Zurich Zoo? route, plan', state: false, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2017-04-23T09:28:56.782Z', group: 'home' },
+    { id: 3, title: 'Do something with Ellen', description: 'email reply and plan', state: false, priority: 2, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2017-04-30T09:28:56.782Z', group: 'home' },
+    { id: 4, title: 'Berlin One Year Party', description: 'place, time to start, planning, people to invite', state: false, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2017-06-17T09:28:56.782Z', group: 'home' },
+    { id: 5, title: 'call home', description: 'every two weeks', state: false, priority: 1, dateCreated: '2016-11-30T23:28:56.782Z', dateStart: '2016-12-05T23:28:56.782Z', dateEnd: '2016-12-10T23:28:56.782Z', group: 'home' },
+    { id: 6, title: 'Anna Party on Saturday', description: 'buy carrots and cucummber', state: false, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2017-04-22T09:28:56.782Z', group: 'home' },
+    { id: 7, title: 'Reiners University search', description: 'what and where to study, how to get there', state: false, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2018-04-21T09:28:56.782Z', group: 'home' },
+    { id: 8, title: 'Armins long term goal', description: 'finding the place in Berlin', state: false, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2019-04-21T09:28:56.782Z', group: 'home' },
+    { id: 9, title: 'Reiners bank account in US', description: 'figure out how to change the name for him', state: false, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2017-04-30T09:28:56.782Z', group: 'home' },
+    { id: 10, title: 'Today', description: 'makeup appointment at 4pm, Theater Stor at 8pm', state: false, priority: 1, dateCreated: '2017-04-21T09:28:56.782Z', dateStart: '2017-04-21T09:28:56.782Z', dateEnd: '2017-04-21T09:28:56.782Z', group: 'home' }
+    ]
+    if(!localStorage.getItem('tasks')) {
+      localStorage.setItem('tasks', JSON.stringify(initTasks)); 
+    } else {
+      initTasks = JSON.parse(localStorage.getItem('tasks'));
+    }
+    return initTasks;
   }
 
   getPriority() {
@@ -136,6 +146,8 @@ export class TaskService {
 
     this.selectedTaskObservable();
     this.filteredTasksObservable();
+
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 
   save(task) {
@@ -160,6 +172,8 @@ export class TaskService {
 
     this.filteredTasksObservable();
     this.selectedTaskObservable();
+
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 
   cancel() {
