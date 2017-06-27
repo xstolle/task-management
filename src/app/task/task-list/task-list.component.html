@@ -7,7 +7,7 @@
           <span>
             <span class="badge">{{filteredTasks.indexOf(task)+1}}</span> {{task.title | maxLength : 25}}
           </span>
-          <i class="material-icons app-input-icon delete-button" [class.disabled]="task.id ==selectedTask.id? false: true" (click)="deleteTask(task.id, $event)">delete</i>
+          <i class="material-icons app-input-icon delete-button" [class.disabled]="task.id ==selectedTask.id? false: true" (click)="disabled && deleteTask(task.id, $event)">delete</i>
         </li>
       </ul>
     </md-card-content>
