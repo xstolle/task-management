@@ -86,7 +86,8 @@ export class TaskService {
     newTask.id = this.getLastId(this.tasks) + 1;
     newTask.dateCreated = moment().format();
     newTask.dateStart = moment().format();
-    newTask.dateEnd = moment().format();
+    newTask.dateEnd = moment().add('days', 1).format();
+;
     newTask.state = false;
     newTask.priority = 1;
 
@@ -134,10 +135,6 @@ export class TaskService {
       this.selectedTaskClone = this.cloneTask(this.filteredTasks[0]);
     } else {
       this.selectedTaskClone = this.cloneTask(this.filteredTasks[i - 1]);
-    }
-    if (!this.selectedTaskClone) {
-      this.addTask();
-      console.log('no tasks on filteredTasks', this.selectedTaskClone);
     }
 
     this.tasks.forEach((task, i) => {
@@ -237,7 +234,10 @@ export class TaskService {
   }
 
   getLastId(tasks) {
-    return R.last(tasks).id;
+    if (tasks.length > 0) {
+      return R.last(tasks).id
+    }
+    return 1;
   }
 
   orderByDate(arr, dateProp) {
